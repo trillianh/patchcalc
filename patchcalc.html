@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<style>
+@font-face{
+	font-family: 'StrongSword_New';
+	src: url('https://s1.pearlcdn.com/global_static/font/web/web_pearl_original.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+body{
+	font-family: 'StrongSword_New';
+	background-color: rgb(204, 195, 185);
+}
+#classcell{
+	background-color:  #332919;
+	color: white;
+	text-align: "center";
+	font-size: "30px";
+	border: "none";
+}
+td#header{
+	text-align: center;
+	color: black;
+	background-color: rgb(161, 143, 94);
+}
+tr td:nth-child(4){
+	text-align: right;
+	color: rgb(204, 195, 185);
+	background-color: #332919;
+}
+th{
+	background-color: rgb(161, 143, 94);
+	color: black;
+}
+tr td:nth-child(1){
+	color: black;
+	background-color: rgb(161, 143, 94);
+}
+tr td:nth-child(2){
+	
+	color: rgb(204, 195, 185);
+	background-color: #332919;
+}
+tr td:nth-child(3){
+	color: rgb(204, 195, 185);
+	background-color: #332919;
+}
+table,th,td{
+	padding: 5px;
+	border-collapse: collapse;
+	border: 1px solid white;
+}
+div#border{
+	padding: 15px;
+	max-width: 796px;
+	background-color: #332919;
+}
+div#or{
+	color: rgb(204, 195, 185);
+	font-size:xx-small;
+}
+
+</style>
+<meta charset="utf-8">
+<html>
+<h1 style="text-align: 	center"></h1>
+<body>
+<center>
+<script>
+	//A18F5E
+	//332919
+	const JOB_NAMES = {
+		"워리어":"Warrior",
+		"레인저":"Ranger",
+		"소서러":"Sorceress",
+		"자이언트":"Berserker",
+		"금수랑":"Tamer",
+		"무사":"Musa",
+		"매화":"Maehwa",
+		"발키리":"Valkyrie",
+		"쿠노이치":"Kunoichi",
+		"닌자":"Ninja",
+		"위자드":"Wizard",
+		"위치":"Witch",
+		"다크나이트":"Dark Knight",
+		"격투가":"Striker",
+		"미스틱":"Mystic",
+		"란":"Lahn",
+		"아처":"Archer",
+		"샤이":"Shai",
+		"가디언":"Guardian",
+		"하사신":"Hashashin",
+		"노바":"Nova",
+		"세이지":"Sage",
+		"커세어":"Corsair",
+		"드라카니아":"Drakania",
+		"우사":"Woosa",
+		"매구":"Maegu",
+		"스칼라":"Scholar",
+		"도사":"Dosa",
+		"데드아이":"Deadeye"
+	}
+/*
+function parseTable(str){
+	let ret = [];
+	while(str.length>0){
+		if(str.includes('\t')){
+		//cell 1 skill name
+		ret.push(str.substring(0,str.indexOf('\t')));
+		str = str.substring(str.indexOf('\t')+1);
+		
+		//cell 2 before
+		ret.push(str.substring(0,str.indexOf('\t')));
+		str = str.substring(str.indexOf('\t')+1);
+
+		//cell 3 after
+		cells = str.substring(0,str.indexOf('\t'));
+		let lastind = cells.lastIndexOf(/\n/g);
+		str = str.substring(cells.lastIndexOf('\n')+1);
+		ret.push(cells);
+		}
+		else{
+			ret.push(str);
+			str = "";
+			
+		}
+	}
+	return ret;
+}*/
+readFile = function(file) {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = (event) => {
+			resolve(event.target.result);
+		};
+		reader.onerror = (event) => {
+			reject(event.target.error);
+		};
+		reader.readAsText(file);
+	});
+};
+getJobnamesInHtml = function(html){
+	let ret = [];
+	let parser = new DOMParser();
+	let doc = parser.parseFromString(html, 'text/html');
+	let namesandtables = doc.querySelectorAll('table,.char_name'); //every table in the page
+	for(let i=0; i<namesandtables.length; i++){
+		/*if(names[i].innerHTML.includes("Template")){
+			//ret.push("test template");
+		}
+		else{
+			ret.push(translateKRtoEN(names[i].innerHTML));
+		}*/
+		if(namesandtables[i].className=="char_name"){
+			let name = translateKRtoEN(namesandtables[i].innerHTML);
+			if(!name.includes("Template")){
+				if(i<namesandtables.length-1){
+					if(typeof namesandtables[i+1]==='string'||namesandtables[i+1] instanceof String){
+
+					}
+					else{
+						ret.push(name);
+					}
+				}
+			}
+		}
+		else if(namesandtables[i].getElementsByTagName('tr')[0].getElementsByTagName('td').length===3){
+			if(namesandtables[i].getElementsByTagName('tr')[1].getElementsByTagName('td')[1].innerHTML.includes("PvP")){
+				ret.push(namesandtables[i]);
+			}
+		}
+	}
+	return ret;
+}
+translateKRtoEN = function(str){
+	for (const [key, value] of Object.entries(JOB_NAMES)) {
+		if(str.includes(key)){
+			return value;
+		}
+	}
+	return str;
+};
+/*getTablesInHtml = function(html) {
+	let currentTable = [];
+	let parser = new DOMParser();
+	let doc = parser.parseFromString(html, 'text/html');
+	let tables = doc.getElementsByTagName('table'); //every table in the page
+
+	let rtables = []; //the table to return
+	for( let i=0; i<tables.length; i++){
+		//check if it's a balance table
+		if(tables[i].getElementsByTagName('tr')[0].getElementsByTagName('td').length===3){
+			if(tables[i].getElementsByTagName('tr')[1].getElementsByTagName('td')[1].innerHTML.includes("PvP")){
+				rtables.push(tables[i]);
+			}
+		}
+
+	}
+	return rtables;
+};*/
+function convertRow(tr){
+	let row = tr.getElementsByTagName('td');
+	let rowData = [];
+	for (let k=0; k < row.length; k++) {
+		let beforedamages = [];
+		let afterdamages = [];
+			
+		if(row[1].innerText.includes("PvP")){
+		row[0].innerText = translateKRtoEN(row[0].innerText);
+			let beforestring = row[1].innerText;
+			while(beforestring.search(/(\sx\s[0-9]{1,2})/)>=0){
+				let percentindex = beforestring.indexOf('%');
+				if(percentindex<beforestring.search(/([0-9]{3,5})/)){
+					percentindex = beforestring.substring(beforestring.indexOf('%')).indexOf('%');
+				}
+				beforedamages.push(parseInt(beforestring.substring(beforestring.search(/([0-9]{3,5})/),percentindex)));
+			    beforestring = beforestring.substring(beforestring.search(/(\sx\s[0-9]{1,2})/)+3);
+			}
+		
+			let afterstring = row[2].innerText;
+			while(afterstring.search(/(\sx\s[0-9]{1,2})/)>=0){
+				let percentindex = afterstring.indexOf('%');
+				if(percentindex<afterstring.search(/([0-9]{3,5})/)){
+					percentindex = afterstring.substring(afterstring.indexOf('%')).indexOf('%');
+				}
+				afterdamages.push(parseInt(afterstring.substring(afterstring.search(/([0-9]{3,5})/),percentindex)));
+				afterstring = afterstring.substring(afterstring.search(/(\sx\s[0-9]{1,2})/)+3);
+			}
+			beforestring = beforestring.substring(beforestring.indexOf("PvP"));
+			afterstring = afterstring.substring(afterstring.indexOf("PvP"));
+		let beforepenalty = (100-parseFloat(beforestring.substring(beforestring.search(/([0-9]{1,2})\.[0-9]{1}%/),beforestring.search('%'))))/100;
+		let afterpenalty = (100-parseFloat(afterstring.substring(afterstring.search(/([0-9]{1,2})\.[0-9]{1}%/),afterstring.search('%'))))/100;
+
+		let cell2 = "";
+		for(i in beforedamages){
+			cell2 += parseInt(beforedamages[i] * beforepenalty);
+			if(i<beforedamages.length-1){
+				cell2 += "%, ";
+			}
+			else{
+				cell2 += "%";
+			}
+			cell2+="<div id='or'>pve:"+beforedamages[i]+"%</div>"
+		}
+		let cell3 = "";
+		for(i in afterdamages){
+			cell3 += parseInt(afterdamages[i] * afterpenalty);
+			if(i<afterdamages.length-1){
+				cell3 += "%, ";
+			}
+			else{
+				cell3 += "%";
+			}
+			cell3+="<div id='or'>pve: "+afterdamages[i]+"%</div>"
+		}
+		let cell4 = 0;
+		cell4 = 100*(afterdamages[0] * afterpenalty)/(beforedamages[0] * beforepenalty)-100;
+		cell4 = parseInt(100*cell4)/100;
+		rowData.push(row[0].innerText);
+		rowData.push(cell2);
+		rowData.push(cell3);
+		rowData.push(cell4+"%");
+		}
+		else{
+			rowData.push(row[0].innerText);
+		}
+	}
+	return rowData;
+}
+function translateSkillName(str){
+	str = str.replaceAll("진","Absolute");
+	str = str.replaceAll("극","Ultimate");
+	str = str.replaceAll("강","Prime");
+	str = str.replaceAll("전승","Succession");
+	str = str.replaceAll("화살","Arrow");
+	str = str.replaceAll("바람","Wind");
+	return str;
+}
+function convert(){
+ var glabupload = document.getElementById("inputpage").files[0];
+	let r = new FileReader();
+	r.readAsText(glabupload);
+	r.addEventListener("load", function() {
+ var table = document.getElementById("output");
+ table.innerHTML = ""; //clear the table
+ table.style="border-collapse: collapse; border: 1px solid #d9d9d9; line-height: 1.6;font-family: 'StrongSword_New', sans-serif;";
+ let class_array = getJobnamesInHtml(r.result);
+for(let i=0; i<class_array.length; i++){
+	if(class_array[i] instanceof String||typeof class_array[i]==='string'){
+		if(class_array[i+1] instanceof String||typeof class_array[i+1]==='string'){
+		}
+		else if(i==class_array.length){
+
+		}
+		else{
+			var classrow = table.insertRow();
+			var classcell = classrow.insertCell(0);
+			classcell.colSpan = 4;
+			classcell.id = "classcell";
+			classcell.innerHTML = class_array[i];
+		}
+	}
+	else{
+		let currentTable = class_array[i].getElementsByTagName('tr');
+		let datarow = table.insertRow();
+		let cell1 = datarow.insertCell(0);
+		let cell2 = datarow.insertCell(1);
+		let cell3 = datarow.insertCell(2);
+		let cell4 = datarow.insertCell(3);
+		cell1.innerHTML = "skill";
+		cell2.innerHTML = "before";
+		cell2.id = "header";
+		cell3.innerHTML = "after";
+		cell3.id= "header";
+		cell4.innerHTML = "pvp change";
+		cell4.id= "header";
+		for(let n=1; n<currentTable.length; n++){
+			let datarow = table.insertRow();
+			let cell1 = datarow.insertCell(0);
+			let cell2 = datarow.insertCell(1);
+			let cell3 = datarow.insertCell(2);
+			let cell4 = datarow.insertCell(3);
+			let rowData = convertRow(currentTable[n]);
+			cell1.innerHTML = translateSkillName(rowData[0]); //convertRow(rowData)[0].innerText;
+			cell2.innerHTML = rowData[1];
+			cell3.innerHTML = rowData[2];
+			cell4.innerHTML = rowData[3];
+		}
+	}
+}
+		}, false, function(){
+		document.getElementById("outputmsg").value=("Invalid URL. Please enter a valid Global Lab URL.");
+	}
+	);
+}
+ 
+ 
+
+</script>
+<p></p>
+Upload Global Labs HTML file here:<input type="file" id ="inputpage" label="Upload Global Labs HTML file" onchange="convert()" accept=".html">
+<p id="outputmsg">This calculator will sometimes omit significant things like functional changes ex. added 100% crit chance</p>
+
+<div id="border">
+<table id="output">
+	<tr>
+		<td><img src="https://i.imgur.com/klpTfxv.png" /></td>
+	</tr>
+
+</table></div>
+</body>
+</html>
