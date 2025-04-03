@@ -26,6 +26,7 @@ tr td:nth-child(4){
 	text-align: right;
 	color: rgb(204, 195, 185);
 	background-color: #332919;
+	width: 10% ;
 }
 th{
 	background-color: rgb(161, 143, 94);
@@ -34,13 +35,15 @@ th{
 tr td:nth-child(1){
 	color: black;
 	background-color: rgb(161, 143, 94);
+	width: 30% ;
 }
 tr td:nth-child(2){
-	
+	text-align: center;
 	color: rgb(204, 195, 185);
 	background-color: #332919;
 }
 tr td:nth-child(3){
+	text-align: center;
 	color: rgb(204, 195, 185);
 	background-color: #332919;
 }
@@ -66,11 +69,97 @@ div#or{
 <body onload:"onload()">
 <center>
 <script>
-	//const fs = require('fs');
-	//const path = require('path');
 	//A18F5E
 	//332919
-	const JOB_NAMES = {
+	const SKILL_NAMES_KR = {
+		//succ staff
+		"집중":"Focus","확산":"Diffuse","전류 방전":"Voltaic Discharge","다중 마법 화살":"Multiple Magic Arrows",
+		//wizard
+		"파멸의 불덩이":"Bolide of Destruction","물폭탄":"Aqua Bomb","수막 폭렬":"Aqua Jail Explosion","물의 세례":"Barrage of Water","용암 폭렬":"Magma Bomb","쇄도하는 물줄기":"Torrential Cascade",
+		"업화":"Hellfire","화염의 부름":"Flame's Calling","대재앙":"Cataclysm","차가운 파도":"Chilling Wave",
+		//witch
+		"균형 붕괴":"Equilibrium Break", "고르의 축복 시":"Gorr's Blessing","테트의 강림 시":"Tett's Ascent","균열의 파도":"Fissure Wave", "뇌전 폭풍":"Thunder Storm","번개의 세례":"Barrage of Lightning",
+		"고르":"Gorr","테트":"Tett","전류 파동":"Voltaic Pulse","감벼락":"Lightning Blast",
+		//warrior
+		"황혼의 상처":"Scars of Dusk","지면 강타":"Ground Smash","지면 부수기":"Earth Tremor","수급 찌르기":"Severing Thrust","분쇄":"Pulverize","반격 태세":"Counter",
+		"작열":"Solar Flare","압도":"Overwhelm","광기 부수기":"Frenzied Strikes","무자비":"Merciless","자루 강타":"Hilt Strike","무덤 가르기":"Grave Digging",
+		"무모한 일격":"Reckless Blow","갑옷 부수기":"Armor Break","천공 가르기":"Heaven's Cleave","발목 깨기":"Ankle Break","무릎 차기":"Knee Kick","회전 가르기":"Spinning Slash",
+		"울림의 강타":"Seismic Strike","황혼 가르기":"Dusk Slash","반격 가르기":"Counter Slash","망자 가르기":"Slashing the Dead","광기 바람":"Tempest",
+		//sorc
+		"해방된 어둠":"Darkness Released","핏빛 재앙":"Bloody Calamity","어둠의 업화":"Dark Flame","심연의 불꽃":"Abyssal Flame","그림자 불꽃":"Shadow Ignition",
+		"까마귀 재앙":"Crow Nightmare","덮쳐오는 어둠":"Engulfing Shadow","심연의 어둠":"Abyssal Blow","망자 사냥":"Dead Hunt",
+		//ranger
+		"바람을 타는 깃":"Descending Current","숨을 찢는":"Tearing","길을 여는 바람":"Penetrating Wind","단명의 질풍":"Blasting Gust","옭아매는":"Binding","바람길":"Squall Shot",
+		"울부짖는":"Wailing","광풍":"Tempest","칼날":"Blade","무정한":"Cold","정령의 분노":"Elven Rage","바람의 윤무":"Breezy Blade","덩굴 매듭":"Vine Knot","재창조":"Regeneration",
+		"바람결에 스민 서슬":"Wind Blade",
+		//archer
+		"빗발치는 화살":"Arrow Explosion","광휘의 폭발":"Radiant Explosion","빛의 인도 포함":"Light's Trail","만개하는 살":"Full Bloom","광원의 살":"Grand Bloom","실비아의 창":"Spear of Sylvia",
+		"루트라곤의 부름":"Luthraghon's Call","부름의 메아리 포함":"Echoes of the Call","낙인의 살":"Marked Bloom","활개":"Glissade","심판의 날개":"Winged Strike","유성우":"Meteor Dive",
+		"어둠 도려내기":"Gaping Darkness","그림자 찢기":"Shadow Hack","나뭇결 쏘기":"Verdure Clout","정령의 탄환":"Bolt of Radiance","몰아치는 화살":"Storm of Light","산들바람":"Mountain Breeze",
+		"뿌리 오름":"Uproot","소멸의 빛":"Righteous Smite","빛을 가르는 유성":"Piercing Light","돌풍":"Zephyr Leap",
+		//hash
+		"낙명의 모래시계":"Hourglass of Death","아알의 영역":"Aal's Dominion","참살":"Purge","모래 긋기":"Sand Slicer","능선 베기":"Ridge Reaver","부름받든 칼날":"Chosen Blade",
+		"유사":"Quicksand","사도강림":"Descent","계시의 칼날":"Prophecy Blade","영역 가르기":"Dominion Slash","사도 습격":"Mirage Assault",
+		//tamer
+		"섬광":"Flash","봉 찌르기":"Pole Thrust","자세 돌리기":"Stance Shift","벽력장":"Bolt Wave","사자후":"Roaring","발톱 올려치기":"Upward Claw","공간 벼락":"Void Lightning",
+		"즈려밟기":"Trample","땅의 벼락":"Lightning of Earth","팔방 연환격":"Allround Spinner","공포의 고동":"Fearful Trembling","흑쇄장":"Dark Gaoler","붕격 찌르기":"Jolt Stab",
+		"신수의 발톱":"Legendary Beast's Claw","사방신무":"Legendary Beast Dance","비상격":"Soaring Strike","공명":"Echo",
+		//musa
+		"무사의 기백":"Musa's Resolve","격참":"Twister","연환격":"Spinner","파천":"Backflow","검기 효과":"Blade Effect","용염진":"Crust Crusher","화풍":"Low Blow","화선풍":"Pyrostorm",
+		"역퇴참":"One Step Back","염환참":"Inferno Slash","척사":"Eradicate","격풍":"Gale",
+		//maehwa
+		"붉은바람":"Crimson Gust","선풍참수":"Decapitating Cyclone","역참수":"Decapitating Dragon","흩날리는 꽃잎":"Blooming Stride","다가서는 발걸음":"Blooming Step","낙화 베기":"Razorblade Corolla",
+		"눈꽃덩이":"Petal Swirl","붉은 달":"Red Moon","장님 가르기":"Blind Slash","각수":"Carver","개화":"Blooming","참수":"Decapitation","집요한 창날":"Tenacious Edge","서릿불꽃":"Petal Drill",
+		"달오름":"Moonrise","구름 찌르기":"Cloud Stab","눈꽃덩이":"Petal Swirl","압제":"Oppression","서리꽃":"Frostflower",
+		//valkyrie
+		"단죄의 검":"Sword of Judgement","빛의 심판":"Judgement of Light","거룩한 힘":"Divine Power","영광의 검":"Gladius Gloriae","거룩한 창":"Celestial Smite","거룩한 일격":"Divine Slam",
+		"정화의 방패":"Purificatione","신성 강타":"Sacrum Ferit","빛의 폭렬":"Lucem Fluxum","선고 : 정의의 랜시아":"Verdict: Lancia Iustitae","엔슬라의 신성":"Sanctitas de Enslar","전격 찌르기":"Blitz Stab",
+		"신성폭발":"Divina Inpulsa","신성한 대지":"Terra Sancta",
+		//lahn
+		"대지의 상처":"Earthly Pain","강림":"Tailspin","악격":"Vice","신월무":"Blood Moon Twist","불귀":"Eradication","종말의 발걸음":"Taunting Death","죽음의 무도":"Deadly Dance",
+		"광란":"Furor",
+		//sage
+		"신벌의 대리자":"Divine Executioner","불호령":"Judgement","섬광 돌파":"Impaling Flash","전력 투창":"Spear Bolt","역광의 섬멸의 아케논 효과":"Radiant Annihilation's Arkanon Effect",
+		//kuno
+		"월쇄":"Lunar Dash","첨륜":"Chakram Rise","희연무":"Lethal Spin Spree","원무":"Pinwheel Fury","신인분격":"Wheel of Wrath","공분":"Indignation","요경탄":"Lunatic Discus",
+		//guardian
+		"영광스러운 거행":"Glorious Advance","인탄하는 이빨":"Searing Fang","묵살":"Suppress","멸신의 불길":"God Incinerator","소진":"To Ashes","정화의 불꽃":"Cleansing Flame",
+		"용아귀":"Dragon's Maw","열상의 가시":"Scalding Thorn","설산 가름":"Avalanche Strike","대지 강타":"Mountain Slam","사지 절단":"Mutilation","검은 피의 영역":"Black Blood Circle",
+		"검은 피의 도륙":"Black Blood Slaughter","발톱 꺼내기":"Claw Reveal","관문 부수기":"Gate Crasher",
+		//sair
+		"풍파":"Squall","범람":"Overflow","너울의 입맞춤":"Tide's Kiss","몰아치는 풍파":"Storming Gale","폭풍해일":"Storm Surge","변덕쟁이 파랑":"Ocean Melancholy","너울치기":"Ocean's Pearl",
+		"쏟아지는 파도":"Wipe Out","고래의 꿈":"Whale Song","경쾌한 물보라":"Spiral Soak","항로비틀기":"Whirling Slash","몰아치는 패기":"Vigor Rush","물결치는 너울":"Rising Whirlpool",
+		"너울 일으키기":"Wave Blast","낭만고래":"Spiral of Dreams","백병전":"Close Quarters", "제압":"Suppress","선장 출격":"Spare No Quarter!","소살":"Patraca","태양을 가리는":"Sun-shielder",
+		"까마귀의 표적":"Crow's Mark","선장의 명령 : 개시":"Cap'n's Orders: Open Fire!","대지를 가르는":"Earth-render","바람을 누비는":"Wind-piercer","돌진":"Charge","말려드는 와류":"Entangling Vortex",
+		"낭만유영":"Sea Stroll",
+		//maegu
+		"황천걸음":"Hazy Path","여우달음":"Foxflare Charge","나빌레라":"Foxflare Ambush","폭렬의 춤사위":"Emberclaw Finale","마파람사위":"Twirling Retreat",
+		//scholar
+		"중력장":"Gravity Field","장타":"Home Run","위치 에너지":"Potential Energy","한계 돌파":"Hammer Smash","걷잡을 수 없는 힘":"Infinite Power","풍차 돌리기":"Hammer Spin","전율의 두드림":"Hammerfall",
+		"황금 장벽":"Golden Blockade","황금 가시":"Golden Thorns","황금 파도":"Golden Wave","황금 폭격":"Golden Skyfall",
+		//zerker
+		"포식자의 사냥":"Predatory Hunt","몰아치는 벼락":"Raging Thunder","고대의 파동":"Ancient Wave","거암":"Time to Rock","야수의 벼락":"Feral Rage","파괴의 도끼":"Axe of Destruction",
+		"울부짖는 야수":"Wailing Beast","광포한 바람":"Frenzied Winds","광분의 군림자":"Frenzied Tyrant","황폐화":"Devastation","거신의 일격":"Titan Blow","땅울음":"Seismic Blast","난타":"Slugfest",
+		//striker
+		"도끼 찍기":"Skull Crusher","굶주린 맹수":"Rampaging Predator","먹이뜯기":"Bite Off","낙진":"Fallout","나락붕괴":"Infernal Destruction",
+		//mystic
+		"초열":"Death Clout","칠진각":"Soul Basher","드러낸 발톱":"Hidden Claw","권무":"Fist Fury","진공 회축":"Tornado Kick","나락 붕추":"Sweeping Kick","호포":"Roaring Tiger","등각":"Somersault",
+		"비상각":"Scissor Kick","거대한 진노":"Rage Hammer","수장":"Sea Burial","파공":"Wave Orb","태풍 차기":"Hurricane Kick",
+		//nova
+		"눈 위에 내린 서리":"Rime Ice","마주하는 어둠":"Face the Darkness","매서운 호령":"Bitter Reign","얼음가시":"Icy Thorns","크라툼의 상승":"Quoratum's Ascension","얼어붙는 대지":"Frozen Earth",
+		"격돌하는 기병":"Stamma's Mate","옭아매는 얼음가시":"Entangling Icy Thorns","덮치는 고리":"Swooping Ring","얼음덩굴":"Frozen Chain","매서운 샛별":"Bitter Star","크라툼의 대지":"Quoratum's Earth",
+		//drakania
+		"벼락불 작렬":"Brimbolt Strike","사르는 참격":"Blazing Strike","일반":"normal","최대 출력":"max ion output","마크타난의 손짓":"Markthanan's Flourish","숨통 꿰뚫기":"Eviscerate",
+		"가르는 발톱":"Sundering Claw","승천":"Ascent","연쇄 베기":"Omnislash","마인":"Hexeblood","마룡":"Dragonblood","척결":"Obliterate","날카로운 선포":"Savage Decree","대지를 가르는 포효":"Sundering Roar",
+		"휘날리는 폭압":"Aerial Burst","파멸의 인도자":"Doombringer",
+		//woosa
+		"떨어지거라":"Bloom Deluge","스쳐가는 영":"Soul Cleanse","달의 노래":"Mark of the Moon","피어오르리":"Bloomburst","만개하리":"Bloom","추수":"Life Lure","파종":"Seocheon Field","꽃부름":"Blooming Death",
+		"꽃물림":"Soul Shower","사희 강림":"Sahee's Descent","게섯거라":"Soul Shock","천도":"Death's Proclamation","휘영청 떠오른 달":"Moonlit Blast"
+		//general
+		"진":"Absolute","극":"Ultimate","강":"Prime","전승":"Succession","바람":"Wind","서":"Frost","흑정령":"Black Spirit","화살":"Arrow","흐름":"Flow","연":"Chain","포함":"included",
+		"마레카":"Mareca","환란":"Chaos","명령":"Command"
+	}
+const JOB_NAMES_KR = {
 		"워리어":"Warrior",
 		"레인저":"Ranger",
 		"소서러":"Sorceress",
@@ -101,33 +190,6 @@ div#or{
 		"도사":"Dosa",
 		"데드아이":"Deadeye"
 	}
-/*
-function parseTable(str){
-	let ret = [];
-	while(str.length>0){
-		if(str.includes('\t')){
-		//cell 1 skill name
-		ret.push(str.substring(0,str.indexOf('\t')));
-		str = str.substring(str.indexOf('\t')+1);
-		
-		//cell 2 before
-		ret.push(str.substring(0,str.indexOf('\t')));
-		str = str.substring(str.indexOf('\t')+1);
-
-		//cell 3 after
-		cells = str.substring(0,str.indexOf('\t'));
-		let lastind = cells.lastIndexOf(/\n/g);
-		str = str.substring(cells.lastIndexOf('\n')+1);
-		ret.push(cells);
-		}
-		else{
-			ret.push(str);
-			str = "";
-			
-		}
-	}
-	return ret;
-}*/
 function onload(){
 document.getElementById("inputpage").files = [];
 document.getElementById("inputpage").files.push(getFile("C:\\Users\\astra\\Desktop\\etc\\patchcalc\\glabr.html"));
@@ -150,12 +212,6 @@ getJobnamesInHtml = function(html){
 	let doc = parser.parseFromString(html, 'text/html');
 	let namesandtables = doc.querySelectorAll('table,.char_name'); //every table in the page
 	for(let i=0; i<namesandtables.length; i++){
-		/*if(names[i].innerHTML.includes("Template")){
-			//ret.push("test template");
-		}
-		else{
-			ret.push(translateKRtoEN(names[i].innerHTML));
-		}*/
 		if(namesandtables[i].className=="char_name"){
 			let name = translateKRtoEN(namesandtables[i].innerHTML);
 			if(!name.includes("Template")){
@@ -178,7 +234,7 @@ getJobnamesInHtml = function(html){
 	return ret;
 }
 translateKRtoEN = function(str){
-	for (const [key, value] of Object.entries(JOB_NAMES)) {
+	for (const [key, value] of Object.entries(JOB_NAMES_KR)) {
 		if(str.includes(key)){
 			return value;
 		}
@@ -245,24 +301,14 @@ function convertRow(tr){
 		let cell2 = "";
 		for(i in beforedamages){
 			cell2 += parseInt(beforedamages[i] * beforepenalties[i]);
-			if(i<beforedamages.length-1){
-				cell2 += "%, ";
-			}
-			else{
-				cell2 += "%";
-			}
-			cell2+="<div id='or'>pve:"+beforedamages[i]+"%</div>"
+			cell2 += "%"
+			cell2+="<div id='or'>"+beforedamages[i]+"% in PvE</div>"
 		}
 		let cell3 = "";
 		for(i in afterdamages){
 			cell3 += parseInt(afterdamages[i] * afterpenalties[i]);
-			if(i<afterdamages.length-1){
-				cell3 += "%, ";
-			}
-			else{
-				cell3 += "%";
-			}
-			cell3+="<div id='or'>pve: "+afterdamages[i]+"%</div>"
+			cell3 += "%"
+			cell3+="<div id='or'>"+afterdamages[i]+"% in PvE</div>"
 		}
 		let cell4 = 0;
 		cell4 = 100*(afterdamages[0] * afterpenalties[0])/(beforedamages[0] * beforepenalties[0])-100;
@@ -279,12 +325,11 @@ function convertRow(tr){
 	return rowData;
 }
 function translateSkillName(str){
-	str = str.replaceAll("진","Absolute");
-	str = str.replaceAll("극","Ultimate");
-	str = str.replaceAll("강","Prime");
-	str = str.replaceAll("전승","Succession");
-	str = str.replaceAll("화살","Arrow");
-	str = str.replaceAll("바람","Wind");
+	for (const [key, value] of Object.entries(SKILL_NAMES_KR)) {
+		while(str.includes(key)){
+			str = str.replace(key, value);
+		}
+	}
 	return str;
 }
 function convert(){
@@ -349,8 +394,9 @@ for(let i=0; i<class_array.length; i++){
 
 </script>
 <p></p>
-Upload Global Labs HTML file here:<input type="file" id ="inputpage" label="Upload Global Labs HTML file" onchange="convert()" accept=".html">
-<p id="outputmsg">This calculator will sometimes omit significant things like functional changes ex. added 100% crit chance</p>
+Upload KR or Global Labs HTML file here:<input type="file" id ="inputpage" label="Upload Global Labs HTML file" onchange="convert()" accept=".html">
+<p id="outputmsg">This calculator will sometimes omit significant things like functional changes ex. added 100% crit chance.</p>
+<p>Other regions are not supported yet.</p>
 
 <div id="border">
 <table id="output">
