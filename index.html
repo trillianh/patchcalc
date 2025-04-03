@@ -34,6 +34,7 @@ th{
 }
 tr td:nth-child(1){
 	color: black;
+	text-align: center;
 	background-color: rgb(161, 143, 94);
 	width: 30% ;
 }
@@ -73,7 +74,7 @@ div#or{
 	//332919
 	const SKILL_NAMES_KR = {
 		//succ staff
-		"집중":"Focus","확산":"Diffuse","전류 방전":"Voltaic Discharge","다중 마법 화살":"Multiple Magic Arrows",
+		"집중":"Focus","확산":"Diffuse","전류 방전":"Voltaic Discharge","다중 마법 화살":"Multiple Magic Arrows","빙결":"Freeze","지진 : 파괴":"Earthquake: Destruction","지진 : 회피":"Earthquake: Evade",
 		//wizard
 		"파멸의 불덩이":"Bolide of Destruction","물폭탄":"Aqua Bomb","수막 폭렬":"Aqua Jail Explosion","물의 세례":"Barrage of Water","용암 폭렬":"Magma Bomb","쇄도하는 물줄기":"Torrential Cascade",
 		"업화":"Hellfire","화염의 부름":"Flame's Calling","대재앙":"Cataclysm","차가운 파도":"Chilling Wave",
@@ -87,7 +88,8 @@ div#or{
 		"울림의 강타":"Seismic Strike","황혼 가르기":"Dusk Slash","반격 가르기":"Counter Slash","망자 가르기":"Slashing the Dead","광기 바람":"Tempest",
 		//sorc
 		"해방된 어둠":"Darkness Released","핏빛 재앙":"Bloody Calamity","어둠의 업화":"Dark Flame","심연의 불꽃":"Abyssal Flame","그림자 불꽃":"Shadow Ignition",
-		"까마귀 재앙":"Crow Nightmare","덮쳐오는 어둠":"Engulfing Shadow","심연의 어둠":"Abyssal Blow","망자 사냥":"Dead Hunt",
+		"까마귀 재앙":"Crow Nightmare","덮쳐오는 어둠":"Engulfing Shadow","심연의 어둠":"Abyssal Blow","망자 사냥":"Dead Hunt","몽마":"Nightmare","진혼곡":"Requiem",
+		"망자유린":"Violation","사악한 복수":"Vile Plan","영혼 절개":"Soul Reaper","사신의 심판":"Grim Reaper's Judgement","휘몰아치는 어둠":"Swirling Darkness",
 		//ranger
 		"바람을 타는 깃":"Descending Current","숨을 찢는":"Tearing","길을 여는 바람":"Penetrating Wind","단명의 질풍":"Blasting Gust","옭아매는":"Binding","바람길":"Squall Shot",
 		"울부짖는":"Wailing","광풍":"Tempest","칼날":"Blade","무정한":"Cold","정령의 분노":"Elven Rage","바람의 윤무":"Breezy Blade","덩굴 매듭":"Vine Knot","재창조":"Regeneration",
@@ -99,11 +101,13 @@ div#or{
 		"뿌리 오름":"Uproot","소멸의 빛":"Righteous Smite","빛을 가르는 유성":"Piercing Light","돌풍":"Zephyr Leap",
 		//hash
 		"낙명의 모래시계":"Hourglass of Death","아알의 영역":"Aal's Dominion","참살":"Purge","모래 긋기":"Sand Slicer","능선 베기":"Ridge Reaver","부름받든 칼날":"Chosen Blade",
-		"유사":"Quicksand","사도강림":"Descent","계시의 칼날":"Prophecy Blade","영역 가르기":"Dominion Slash","사도 습격":"Mirage Assault",
+		"유사":"Quicksand","사도강림":"Descent","계시의 칼날":"Prophecy Blade","영역 가르기":"Dominion Slash","사도 습격":"Mirage Assault","추궁의 칼날":"Inquisition",
+		"사구베기":"Dune Slash","고요한 틈":"Silent Breach","포박하는 모래늪":"Ensnaring Sands","뱀의 똬리":"Serpent's Coil","교화":"Retribution","낙원의 쇄도":"Paradise Surge",
+		"추락 붕괴":"Collapse","죄악을 가르는 칼날":"Sin Splitter","찌르는 독니":"Piercing Fang",
 		//tamer
 		"섬광":"Flash","봉 찌르기":"Pole Thrust","자세 돌리기":"Stance Shift","벽력장":"Bolt Wave","사자후":"Roaring","발톱 올려치기":"Upward Claw","공간 벼락":"Void Lightning",
 		"즈려밟기":"Trample","땅의 벼락":"Lightning of Earth","팔방 연환격":"Allround Spinner","공포의 고동":"Fearful Trembling","흑쇄장":"Dark Gaoler","붕격 찌르기":"Jolt Stab",
-		"신수의 발톱":"Legendary Beast's Claw","사방신무":"Legendary Beast Dance","비상격":"Soaring Strike","공명":"Echo",
+		"신수의 발톱":"Legendary Beast's Claw","사방신무":"Legendary Beast Dance","비상격":"Soaring Strike","공명":"Echo","월광타":"Moonlight Strike",
 		//musa
 		"무사의 기백":"Musa's Resolve","격참":"Twister","연환격":"Spinner","파천":"Backflow","검기 효과":"Blade Effect","용염진":"Crust Crusher","화풍":"Low Blow","화선풍":"Pyrostorm",
 		"역퇴참":"One Step Back","염환참":"Inferno Slash","척사":"Eradicate","격풍":"Gale",
@@ -114,14 +118,18 @@ div#or{
 		//valkyrie
 		"단죄의 검":"Sword of Judgement","빛의 심판":"Judgement of Light","거룩한 힘":"Divine Power","영광의 검":"Gladius Gloriae","거룩한 창":"Celestial Smite","거룩한 일격":"Divine Slam",
 		"정화의 방패":"Purificatione","신성 강타":"Sacrum Ferit","빛의 폭렬":"Lucem Fluxum","선고 : 정의의 랜시아":"Verdict: Lancia Iustitae","엔슬라의 신성":"Sanctitas de Enslar","전격 찌르기":"Blitz Stab",
-		"신성폭발":"Divina Inpulsa","신성한 대지":"Terra Sancta",
+		"신성폭발":"Divina Inpulsa","신성한 대지":"Terra Sancta","방패 던지기":"Shield Throw","반격태세":"Counter",
 		//lahn
 		"대지의 상처":"Earthly Pain","강림":"Tailspin","악격":"Vice","신월무":"Blood Moon Twist","불귀":"Eradication","종말의 발걸음":"Taunting Death","죽음의 무도":"Deadly Dance",
-		"광란":"Furor",
+		"광란":"Furor","꿰뚫는 심장":"Bleeding Hearts","주마등":"Dancing with Death",
 		//sage
 		"신벌의 대리자":"Divine Executioner","불호령":"Judgement","섬광 돌파":"Impaling Flash","전력 투창":"Spear Bolt","역광의 섬멸의 아케논 효과":"Radiant Annihilation's Arkanon Effect",
+		//ninja
+		"인술":"Ninjutsu","도깨비 베기":"Ghost Slash","참수":"Decapitation","살의연참":"Murderous Sever","수라난무":"Sura ChaoSpree","단명참":"Sudden Decapitation","이룡등공":"Serpent Ascension",
+		"일도양단":"Drastic Measure","음속폭음":"Mach Explosion","사형집행":"Execution",
 		//kuno
 		"월쇄":"Lunar Dash","첨륜":"Chakram Rise","희연무":"Lethal Spin Spree","원무":"Pinwheel Fury","신인분격":"Wheel of Wrath","공분":"Indignation","요경탄":"Lunatic Discus",
+		"발목베기":"Ankle Cutter","살무":"Danse Macabre","월영비":"Penumbral Blade","흐름 : 첨륜":"Chain Crash: Sah Chakram","바닥 쓸기":"Floor Sweeping","경탄추":"Delighted Blast",
 		//guardian
 		"영광스러운 거행":"Glorious Advance","인탄하는 이빨":"Searing Fang","묵살":"Suppress","멸신의 불길":"God Incinerator","소진":"To Ashes","정화의 불꽃":"Cleansing Flame",
 		"용아귀":"Dragon's Maw","열상의 가시":"Scalding Thorn","설산 가름":"Avalanche Strike","대지 강타":"Mountain Slam","사지 절단":"Mutilation","검은 피의 영역":"Black Blood Circle",
@@ -133,10 +141,14 @@ div#or{
 		"까마귀의 표적":"Crow's Mark","선장의 명령 : 개시":"Cap'n's Orders: Open Fire!","대지를 가르는":"Earth-render","바람을 누비는":"Wind-piercer","돌진":"Charge","말려드는 와류":"Entangling Vortex",
 		"낭만유영":"Sea Stroll",
 		//maegu
-		"황천걸음":"Hazy Path","여우달음":"Foxflare Charge","나빌레라":"Foxflare Ambush","폭렬의 춤사위":"Emberclaw Finale","마파람사위":"Twirling Retreat",
+		"황천걸음":"Hazy Path","여우달음":"Foxflare Charge","나빌레라":"Foxflare Ambush","폭렬의 춤사위":"Emberclaw Finale","마파람사위":"Twirling Retreat","천도의 춤":"Heavenward Dance","초롱불":"Bristling Sparks",
+		"화구":"Foxflare","꽃놀이패":"Petal Play","귀신회오리":"Spirit Swirl","여우신령 : 강림":"Foxspirit: Phantom","여우풀이":"Emberclaw Torrent","으름":"Emberclaw Slash","칼바람":"Emberclaw Sweep",
+		"피어오름":"Emberclaw Crush",
 		//scholar
 		"중력장":"Gravity Field","장타":"Home Run","위치 에너지":"Potential Energy","한계 돌파":"Hammer Smash","걷잡을 수 없는 힘":"Infinite Power","풍차 돌리기":"Hammer Spin","전율의 두드림":"Hammerfall",
 		"황금 장벽":"Golden Blockade","황금 가시":"Golden Thorns","황금 파도":"Golden Wave","황금 폭격":"Golden Skyfall",
+		//deadeye
+		"석양을 꿰뚫는 일격":"Sunset Piercer","풍차걸음":"Dust Devil","기폭":"Kaboom",
 		//zerker
 		"포식자의 사냥":"Predatory Hunt","몰아치는 벼락":"Raging Thunder","고대의 파동":"Ancient Wave","거암":"Time to Rock","야수의 벼락":"Feral Rage","파괴의 도끼":"Axe of Destruction",
 		"울부짖는 야수":"Wailing Beast","광포한 바람":"Frenzied Winds","광분의 군림자":"Frenzied Tyrant","황폐화":"Devastation","거신의 일격":"Titan Blow","땅울음":"Seismic Blast","난타":"Slugfest",
@@ -148,13 +160,18 @@ div#or{
 		//nova
 		"눈 위에 내린 서리":"Rime Ice","마주하는 어둠":"Face the Darkness","매서운 호령":"Bitter Reign","얼음가시":"Icy Thorns","크라툼의 상승":"Quoratum's Ascension","얼어붙는 대지":"Frozen Earth",
 		"격돌하는 기병":"Stamma's Mate","옭아매는 얼음가시":"Entangling Icy Thorns","덮치는 고리":"Swooping Ring","얼음덩굴":"Frozen Chain","매서운 샛별":"Bitter Star","크라툼의 대지":"Quoratum's Earth",
+		"몰아치는 사제":"Fianchetto","혹한의 어둠":"Frozen Darkness","몰아치는 샛별":"Storming Star","형벌":"Affliction","여제의 징벌":"Queen's Gambit",
 		//drakania
 		"벼락불 작렬":"Brimbolt Strike","사르는 참격":"Blazing Strike","일반":"normal","최대 출력":"max ion output","마크타난의 손짓":"Markthanan's Flourish","숨통 꿰뚫기":"Eviscerate",
 		"가르는 발톱":"Sundering Claw","승천":"Ascent","연쇄 베기":"Omnislash","마인":"Hexeblood","마룡":"Dragonblood","척결":"Obliterate","날카로운 선포":"Savage Decree","대지를 가르는 포효":"Sundering Roar",
-		"휘날리는 폭압":"Aerial Burst","파멸의 인도자":"Doombringer",
+		"휘날리는 폭압":"Aerial Burst","파멸의 인도자":"Doombringer","허파 찌르기":"Skewer","섬뜩한 발톱":"Abyssal Fang","벼락불 섬멸":"Brimbolt Annihilation","벼락불 휩쓸기":"Brimbolt Raze",
+		"잔불":"Embers","마크타난의 영역":"Markthanan's Dominion",
 		//woosa
 		"떨어지거라":"Bloom Deluge","스쳐가는 영":"Soul Cleanse","달의 노래":"Mark of the Moon","피어오르리":"Bloomburst","만개하리":"Bloom","추수":"Life Lure","파종":"Seocheon Field","꽃부름":"Blooming Death",
-		"꽃물림":"Soul Shower","사희 강림":"Sahee's Descent","게섯거라":"Soul Shock","천도":"Death's Proclamation","휘영청 떠오른 달":"Moonlit Blast",
+		"꽃물림":"Soul Shower","사희 강림":"Sahee's Descent","게섯거라":"Soul Shock","천도":"Death's Proclamation","휘영청 떠오른 달":"Moonlit Blast","꽃놀이":"Perilous Waltz",
+		//dosa
+		"올려베기":"Rising Slash","두 번 가로 베기":"Twin Slash","겨울 소나기":"Winter Squall","가을 벼락":"Autumnal Blitz","태극":"Taeguk","사계":"Four Seasons","오행 : 상생":"Elements:Generate","나무":"Wood",
+		"굽음":"Bend","흙":"Earth","심음":"Till","물":"Water","엮음":"Weave","곧음":"Stake","거둠":"Reap","쇠 : 따름":"Metal: Pour",
 		//general
 		"진":"Absolute","극":"Ultimate","강":"Prime","전승":"Succession","바람":"Wind","흑정령":"Black Spirit","화살":"Arrow","흐름":"Flow","연":"Chain","포함":"included",
 		"마레카":"Mareca","환란":"Chaos","명령":"Command"
