@@ -144,7 +144,7 @@ div#or{
 		"개화":"Blooming","참수":"Decapitation","집요한 창날":"Tenacious Edge","서릿불꽃":"Petal Drill","달오름":"Moonrise","구름 찌르기":"Cloud Stab","눈꽃덩이":"Petal Swirl",
 		"압제":"Oppression","서리꽃":"Frostflower","서릿발":"Frost Pillars","화월만개":"Petal Bloom", "빙산의 일각":"Tip of an Iceberg","본검":"Slice","후퇴베기":"Backstep Slash",
 		"끊어차기":"Blunt Kick","특편전":"Charged Stub Arrow","파훼":"Retaliation","돌아차기":"Roundhouse Kick","깎아차기":"Sweep Kick","오름차기":"Upper Kick","돌개베기":"Whirlwind Cut",
-		"이리오너라":"Arrow Grapple","개화곡두":"Blooming Phantom","반환참":"Counter Assassination","횡참":"Crosscut","본검파":"Deep Slice","초열보":"Flame Rush","첨":"Double Down",
+		"이리오너라":"Arrow Grapple","개화곡두":"Blooming Phantom","반환참":"Counter Assassination","횡참":"Crosscut","본검파":"Deep Slice","초열보":"Flame Rush","첨극":"Double Down",
 		"파쇄":"Projection","돌개의살":"Quick Shot","파훼참수":"Retaliation Decapitation","도가르기":"Searing Slam","용오름화":"Rising Storm Blaze","광풍참":"Steel Gale",
 		"편전정":"Stub Arrow Double Shot","편전회피사격":"Stub Arrow Evasive Shot","돌개베기선풍":"Whirlwind Cut Cyclone",
 		//valkyrie
@@ -275,6 +275,8 @@ const JOB_NAMES_KR = {
 		"데드아이":"Deadeye"
 	}
 function onload(){
+document.getElementById("inputpage").files = [];
+document.getElementById("inputpage").files.push(getFile("C:\\Users\\astra\\Desktop\\etc\\patchcalc\\glabr.html"));
 	}
 readFile = function(file) {
 	return new Promise((resolve, reject) => {
