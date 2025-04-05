@@ -346,12 +346,12 @@ div#or{
 	
 function translateSkillName(str,classname){
 	str=str.replaceAll(" ","");
-	for (const [key, value] of Object.entries(SKILL_NAMES_GENERAL)) {
+	for (const [key, value] of Object.entries(CLASS_MAPPING[classname])) {
 		while(str.includes(key.replaceAll(" ",""))){
 			str = str.replace(key.replaceAll(" ",""), " "+value+" ");
 		}
 	}
-	for (const [key, value] of Object.entries(CLASS_MAPPING[classname])) {
+	for (const [key, value] of Object.entries(SKILL_NAMES_GENERAL)) {
 		while(str.includes(key.replaceAll(" ",""))){
 			str = str.replace(key.replaceAll(" ",""), " "+value+" ");
 		}
