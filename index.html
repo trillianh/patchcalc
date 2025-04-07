@@ -48,6 +48,12 @@ tr td:nth-child(3){
 	color: rgb(204, 195, 185);
 	background-color: #332919;
 }
+tr td:nth-child(5){
+	text-align: left;
+	color: rgb(204, 195, 185);
+	background-color: #332919;
+	width: 10% ;
+}
 table,th,td{
 	padding: 5px;
 	border-collapse: collapse;
@@ -511,12 +517,16 @@ function convertRow(tr){
 			cell3+="<div id='or'>"+afterdamages[i]+"% in PvE</div>"
 		}
 		let cell4 = 0;
+		let cell5 = 0;
 		cell4 = 100*(afterdamages[0] * afterpenalties[0])/(beforedamages[0] * beforepenalties[0])-100;
 		cell4 = parseInt(100*cell4)/100;
+		cell5 = 100*afterdamages[0]/beforedamages[0]-100;
+		cell5 = parseInt(100*cell5)/100;
 		rowData.push(row[0].innerText);
 		rowData.push(cell2);
 		rowData.push(cell3);
 		rowData.push(cell4+"%");
+		rowData.push(cell5+"%");
 		}
 		else{
 			rowData.push(row[0].innerText);
@@ -544,7 +554,7 @@ for(let i=0; i<class_array.length; i++){
 		else{
 			var classrow = table.insertRow();
 			var classcell = classrow.insertCell(0);
-			classcell.colSpan = 4;
+			classcell.colSpan = 5;
 			classcell.id = "classcell";
 			classcell.innerHTML = class_array[i];
 		}
@@ -556,6 +566,7 @@ for(let i=0; i<class_array.length; i++){
 		let cell2 = datarow.insertCell(1);
 		let cell3 = datarow.insertCell(2);
 		let cell4 = datarow.insertCell(3);
+		let cell5 = datarow.insertCell(4);
 		cell1.innerHTML = "skill";
 		cell2.innerHTML = "before";
 		cell2.id = "header";
@@ -563,17 +574,21 @@ for(let i=0; i<class_array.length; i++){
 		cell3.id= "header";
 		cell4.innerHTML = "pvp change";
 		cell4.id= "header";
+		cell5.innerHTML = "pve change";
+		cell5.id= "header";
 		for(let n=1; n<currentTable.length; n++){
 			let datarow = table.insertRow();
 			let cell1 = datarow.insertCell(0);
 			let cell2 = datarow.insertCell(1);
 			let cell3 = datarow.insertCell(2);
 			let cell4 = datarow.insertCell(3);
+			let cell5 = datarow.insertCell(4);
 			let rowData = convertRow(currentTable[n]);
 			cell1.innerHTML = translateSkillName(rowData[0],currentJob); //convertRow(rowData)[0].innerText;
 			cell2.innerHTML = rowData[1];
 			cell3.innerHTML = rowData[2];
 			cell4.innerHTML = rowData[3];
+			cell5.innerHTML = rowData[4];
 		}
 	}
 }
