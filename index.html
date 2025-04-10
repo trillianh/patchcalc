@@ -365,6 +365,7 @@ function translateSkillName(str,classname){
 	return str;
 }
 var currentJob = "";
+var isEN = false;
 const JOB_NAMES_KR = {
 		"워리어":"Warrior",
 		"레인저":"Ranger",
@@ -416,6 +417,7 @@ getJobnamesInHtml = function(html){
 	let ret = [];
 	let parser = new DOMParser();
 	let doc = parser.parseFromString(html, 'text/html');
+	isEN = doc.querySelector('title').innerHTML.includes("Patch Notes");
 	let namesandtables = doc.querySelectorAll('table,.char_name'); //every table in the page
 	for(let i=0; i<namesandtables.length; i++){
 		if(namesandtables[i].className=="char_name"){
@@ -440,6 +442,9 @@ getJobnamesInHtml = function(html){
 	return ret;
 }
 translateKRtoEN = function(str){
+	if(isEN){
+		return str;
+	}
 	for (const [key, value] of Object.entries(JOB_NAMES_KR)) {
 		if(str.includes(key)){
 			return value;
@@ -458,45 +463,44 @@ function convertRow(tr){
 	for (let k=0; k < row.length; k++) {
 		let beforedamages = [];
 		let afterdamages = [];
-		let beforepenalties=[];
-		let afterpenalties=[];
+		let beforepenalties= [];
+		let afterpenalties= [];
 			
 		if(row[1].innerText.includes("PvP")){
 			row[0].innerText = translateKRtoEN(row[0].innerText);
 			let beforestring = row[1].innerText;
 			beforestring = beforestring.replaceAll(/\+([0-9]{2})%/g, "");
-			while(beforestring.search(/(\sx\s[0-9]{1,2})/)>=0){
-				let percentindex = beforestring.indexOf('%');
-				if(percentindex<beforestring.search(/([0-9]{3,5})/)){
-					percentindex = beforestring.substring(beforestring.indexOf('%')).indexOf('%');
-				}
-				beforedamages.push(parseInt(beforestring.substring(beforestring.search(/([0-9]{3,5})/),percentindex)));
-			    beforestring = beforestring.substring(beforestring.search(/(\sx\s[0-9]{1,2})/)+3);
-			}
-		
 			let afterstring = row[2].innerText;
 			afterstring = afterstring.replaceAll(/\+([0-9]{2})%/g, "");
-			while(afterstring.search(/(\sx\s[0-9]{1,2})/)>=0){
-				let percentindex = afterstring.indexOf('%');
-				if(percentindex<afterstring.search(/([0-9]{3,5})/)){
-					percentindex = afterstring.substring(afterstring.indexOf('%')).indexOf('%');
+			let dmgre = /[0-9]{3,5}%/g;
+			let penre = /\s([0-9]{1,2})\.[0-9]{1}%/g;
+			if(isEN){
+				penre = /-([0-9]{1,2})\.[0-9]{1}%/g;
+			}
+			while(beforestring.search(dmgre)>-1||beforestring.search(penre)>-1){
+				let percentindex = beforestring.indexOf('%');
+				if((beforestring.search(dmgre)>-1&&beforestring.search(penre)>-1)&&beforestring.search(dmgre)<beforestring.search(penre)){ //there should always be a penre at here
+					beforedamages.push(parseInt(beforestring.substring(beforestring.search(/([0-9]{3,5})/),percentindex)));
 				}
-				afterdamages.push(parseInt(afterstring.substring(afterstring.search(/([0-9]{3,5})/),percentindex)));
-				afterstring = afterstring.substring(afterstring.search(/(\sx\s[0-9]{1,2})/)+3);
+				else if(beforestring.search(penre)>-1){
+					beforepenalties.push((100-parseFloat(beforestring.substring(beforestring.search(penre)+1,percentindex)))/100)
+				}
+				beforestring = beforestring.substring(percentindex+1);
 			}
-			beforestring = beforestring.substring(beforestring.indexOf("PvP"));
-			afterstring = afterstring.substring(afterstring.indexOf("PvP"));
-			//let beforepenalty = 1;
-			//let afterpenalty = 1;
-			while(beforestring.search(/([0-9]{1,2})\.[0-9]{1}%/)!=-1){
-				beforepenalties.push((100-parseFloat(beforestring.substring(beforestring.search(/([0-9]{1,2})\.[0-9]{1}%/),beforestring.search('%'))))/100);
-				beforestring = beforestring.substring(beforestring.search(/([0-9]{1,2})\.[0-9]{1}%/)+3);
+			
+			while(afterstring.search(dmgre)>-1||afterstring.search(penre)>-1){
+				let percentindex = afterstring.indexOf('%');
+				if((afterstring.search(dmgre)>-1&&afterstring.search(penre)>-1)&&afterstring.search(dmgre)<afterstring.search(penre)){ //there should always be a penre at here
+					afterdamages.push(parseInt(afterstring.substring(afterstring.search(/([0-9]{3,5})/),percentindex)));
+				}
+				else if(afterstring.search(penre)>-1){
+					afterpenalties.push((100-parseFloat(afterstring.substring(afterstring.search(penre)+1,percentindex)))/100)
+				}
+				afterstring = afterstring.substring(percentindex+1);
 			}
-			while(afterstring.search(/([0-9]{1,2})\.[0-9]{1}%/)!=-1){
-				afterpenalties.push((100-parseFloat(afterstring.substring(afterstring.search(/([0-9]{1,2})\.[0-9]{1}%/),afterstring.search('%'))))/100);
-				afterstring = afterstring.substring(afterstring.search(/([0-9]{1,2})\.[0-9]{1}%/)+3);
-			}
+		
 			//populate penalty arrays if there are more damage numbers than penalty numbers
+
 			while(beforepenalties.length<beforedamages.length){
 				beforepenalties.push(beforepenalties[0]);
 			}
@@ -516,6 +520,10 @@ function convertRow(tr){
 			cell3 += "%"
 			cell3+="<div id='or'>"+afterdamages[i]+"% in PvE</div>"
 		}
+		if(beforedamages.length==0){ //populate damage array if there's a pvp penalty number and no damage number
+			beforedamages.push(1000);
+			afterdamages.push(1000);
+		}
 		let cell4 = 0;
 		let cell5 = 0;
 		cell4 = 100*(afterdamages[0] * afterpenalties[0])/(beforedamages[0] * beforepenalties[0])-100;
@@ -529,7 +537,7 @@ function convertRow(tr){
 		rowData.push(cell5+"%");
 		}
 		else{
-			rowData.push(row[0].innerText);
+			rowData.push(row[k].innerText);
 		}
 	}
 	return rowData;
@@ -543,6 +551,7 @@ function convert(){
  table.innerHTML = ""; //clear the table
  table.style="border-collapse: collapse; border: 1px solid #d9d9d9; line-height: 1.6;font-family: 'StrongSword_New', sans-serif;";
  let class_array = getJobnamesInHtml(r.result);
+
 for(let i=0; i<class_array.length; i++){
 	
 	if(class_array[i] instanceof String||typeof class_array[i]==='string'){
@@ -584,7 +593,7 @@ for(let i=0; i<class_array.length; i++){
 			let cell4 = datarow.insertCell(3);
 			let cell5 = datarow.insertCell(4);
 			let rowData = convertRow(currentTable[n]);
-			cell1.innerHTML = translateSkillName(rowData[0],currentJob); //convertRow(rowData)[0].innerText;
+			cell1.innerHTML = (isEN)?rowData[0]:translateSkillName(rowData[0],currentJob);
 			cell2.innerHTML = rowData[1];
 			cell3.innerHTML = rowData[2];
 			cell4.innerHTML = rowData[3];
@@ -602,7 +611,7 @@ for(let i=0; i<class_array.length; i++){
 
 </script>
 <p></p>
-Upload KR or Global Labs HTML file here:<input type="file" id ="inputpage" label="Upload Global Labs HTML file" onchange="convert()" accept=".html">
+Upload KR / Global Labs / NAEU patch notes HTML file here:<input type="file" id ="inputpage" label="Upload Global Labs HTML file" onchange="convert()" accept=".html">
 <p id="outputmsg">This calculator will sometimes omit significant things like functional changes ex. added 100% crit chance, and changed hit count</p>
 <p>Other regions are not supported yet.</p>
 
