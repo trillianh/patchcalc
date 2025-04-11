@@ -166,7 +166,7 @@ div#or{
 		"뿌리 오름":"Uproot","소멸의 빛":"Righteous Smite","빛을 가르는 유성":"Piercing Light","돌풍":"Zephyr Leap","대지를 가르는 화살":"Earth Shatter","비상하는정령":"Ascending Spirit",
 		"정령의비호":"Covering Fire","대지의발돋움":"Earth Kick","추락하는어둠":"Purging Shot","덩굴끊기":"Vine Cutter","날개차기":"Volant Kick","대지의근원":"Wrath of Nature",
 		"흩뿌려지는비호":"Deadly Explosion","뿌리얽기":"Ensnare","밑둥차기":"Low Sweep","날카로운비명":"Piercing Cry","나뭇결얽기":"Radiant Ensnare","폭발하는화살비":"Radiant Storm",
-		"그늘에감기는광휘":"Shadebound Beam","기회포착":"Tactical Strike"
+		"그늘에감기는광휘":"Shadebound Beam","기회포착":"Tactical Strike","빛의소나기":"Sunfall"
 	}
 	const SKILL_NAMES_SHORTSWORD = {
 		//ninja kuno
@@ -193,17 +193,17 @@ div#or{
 	const SKILL_NAMES_KOREA = {
 		//dosa
 		"올려베기":"Rising Slash","두 번 가로 베기":"Twin Slash","겨울 소나기":"Winter Squall","가을 벼락":"Autumnal Blitz","태극":"Taeguk","사계":"Four Seasons",
-		"오행 : 상생":"Elements:Generate","나무":"Wood","굽음":"Bend","흙":"Earth","심음":"Till","물":"Water","엮음":"Weave","곧음":"Stake","거둠":"Reap","쇠 : 따름":"Metal: Pour",
+		"오행 : 상생":"Elements:Generate","나무":"Wood","굽음":"Bend","흙":"Earth","심음":"Till","엮음":"Weave","곧음":"Stake","거둠":"Reap","쇠 : 따름":"Metal: Pour",
 		"빈틈베기":"Airy Piercer","도무":"Blade Waltz","구름장막":"Cloud Shield","구름두르기":"Cloudveil","농무":"Deep Haze","내려베기":"Downpour","장님베기":"Blinding Slash",
 		"안개가르기":"Fog Cleave","안개꽃":"Fogbloom","봄서리":"Spring Frost","여름바람":"Summer Breeze","끝베기":"Final Slash","다시올려베기":"Ricochet","그늘베기":"Shade Slash",
 		"불오름":"Fire Blaze","불터짐":"Fire Burst","불번짐":"Fire Spread","선검농무":"Enlightened Haze","베일구름":"Velum Slash","방벌":"Virga Shaft","내려앉는안개":"Fogfall",
 		"쇠모음":"Metal Alloy","쇠:서늘":"Metal Temper",
 		//maegu
 		"황천걸음":"Hazy Path","여우달음":"Foxflare Charge","나빌레라":"Foxflare Ambush","폭렬의 춤사위":"Emberclaw Finale","마파람사위":"Twirling Retreat","천도의 춤":"Heavenward Dance",
-		"초롱불":"Bristling Sparks","화구":"Foxflare","꽃놀이패":"Petal Play","귀신회오리":"Spirit Swirl","여우신령 : 강림":"Foxspirit: Phantom","여우풀이":"Emberclaw Torrent",
-		"으름":"Emberclaw Slash","칼바람":"Emberclaw Sweep","피어오름":"Emberclaw Crush","발톱빗":"Bared Claws","급살":"Charmed","꽃자욱":"Flower Shroud","여우신령놀음":"Foxspirit Tag",
+		"초롱불":"Bristling Sparks","화구":"Foxflare","꽃놀이패":"Petal Play","귀신회오리":"Spirit Swirl","여우신령:강림":"Foxspirit: Phantom","여우풀이":"Emberclaw Torrent",
+		"으름":"Emberclaw Slash","칼바람":"Emberclaw Sweep","피어오름":"Emberclaw Crush","발톱빗":"Bared Claws","급살":"Charmed","꽃자욱":"Flower Shroud","여우신령:놀음":"Foxspirit Tag",
 		"신령던지기":"Ghost Bomb","발톱긋기":"Lurking Claws","기만하는덫":"Petalblast","섬돌뚫기":"Soul Tear","타오르는령":"Soulflame","속박하는령":"Soulsnare","혼비백산":"Spirited Away",
-		"맴체":"Twirling Rhapsody","꽃봉오리":"Constricting Charm","도리깨풍":"Twirling Foxflare","발따귀":"Fan Kick","노대바람":"Foxflare Encore","한풀이":"Hanpuri","삼도천":"Nether River",
+		"맴체":"Twirling Rhapsody","꽃봉오리":"Constricting Charm","도리깨연풍":"Twirling Foxflare","발따귀":"Fan Kick","노대바람":"Foxflare Encore","한풀이":"Hanpuri","삼도천":"Nether River",
 		"앞발찢기":"Foxflare Cleave","인중치기":"Foxflare Fleche","여우침":"Foxflare Fling","꾸지람":"Foxflare Stroke","귀천":"Heavenly Return","꽃놀이덫":"Petal Snare","화선":"Prime Fan of Flames",
 		"넋두리":"Nukduri Dance","혼백의부":"Soul Charm","굴레":"Spirit Parade","귀신불":"Spirit Sparks",
 		//woosa
@@ -212,8 +212,10 @@ div#or{
 		"휘영청 떠오른 달":"Moonlit Blast","꽃놀이":"Perilous Waltz","죽편":"Bamboo-zled","구름꽃":"Cloud Flower","구렁나비":"Cloudcarve","먹구름":"Cloudrise",
 		"발따귀":"Fan Kick","밑둥가르기":"Fandown","곁차기":"Flutter Kick","나비돌개":"Kaleidoscope Swirl","호통치기":"Pummel","죽":"Bamboo","국":"Chrysanth",
 		"난":"Orchid","매":"Plum","고요한습격":"Silent Strike","밀치기":"Stave Strike","소낙비":"Stormfall","묵뢰":"Thunderstroke","싹쓸바람":"Wingbeat",
-		"삭풍":"Chrysanth Swirl","풍뢰":"Cloudburst","본지나치는영":"Nether Blast","본옆차기":"Netherstrike","낙뢰":"Stormbolt","물결구름":"Inkstroke",
+		"삭풍":"Chrysanth Swirl","풍뢰":"Cloudburst","지나치는영":"Nether Blast","옆차기":"Netherstrike","낙뢰":"Stormbolt","물결구름":"Inkstroke",
 		"나비둥지":"Kaleidoscope Flower","나비뿌리":"Flurry","나비호령":"Inkwrath","마파람":"Thundercall","범나비":"Tigerfly",
+
+		"물":"Water"
 	}
 	const SKILL_NAMES_HANDS = {
 		//zerker
@@ -263,10 +265,10 @@ div#or{
 		//deadeye
 		"연사":"Double Trouble","석양을 꿰뚫는 일격":"Sunset Piercer","풍차걸음":"Dust Devil","기폭":"Kaboom","피바람":"Bulletstorm","덮쳐오는죽음":"Doom 'N Gloom","엄폐사격":"Drop Cover",
 		"회피사격":"Evasive Fire","총잡이나가신다":"Gunslinger's Entrance","펼쳐지는죽음":"Hell's Spread","가득한고통":"Max Pain","난장판":"Mayhem","미소짓는기만":"Ol' Switcheroo",
-		"속사":"Quick Draw","리볼버사격술":"Revolver Mastery","기동사격":"Run 'N Gun","별빛축포":"Star-Spangled Barrage","개척자":"Trailblaze","파괴의미학":"Beautiful Demolition",
+		"리볼버사격술":"Revolver Mastery","기동사격":"Run 'N Gun","별빛축포":"Star-Spangled Barrage","개척자":"Trailblaze","파괴의미학":"Beautiful Demolition",
 		"공중폭격":"Bombs Burstin' in Air","정밀사격":"Dead Eye Shot","뜨거운숨결":"Dragon's Breath","풍차걸음기폭":"Dust Devil Kaboom","후방기동포격":"Evasive Maneuver",
 		"신속사격":"Final Draw","정조준":"Bullseye","숨겨카드":"Pocket Ace","쇠몽둥이":"Iron Blackjack","창공을수놓는포성":"Light Up the Sky","폭발도약":"Reach for the Sky",
-		"떨어지는죽음":"Rainin' Bullets","제압사격":"Suppressing Fire",
+		"떨어지는죽음":"Rainin' Bullets","제압사격":"Suppressing Fire","속사":"Quick Draw"
 	}
 	const SKILL_NAMES_ELE = {
 
@@ -304,7 +306,7 @@ div#or{
 		//dk
 		"재앙의 씨앗":"Seed of Catastrophe","공습":"Air Strike","타락하는대지":"Corrupt Ground","솟구치는어둠":"Darkness Burst","집행":"Enforcement","할퀴는광기":"Ravage Rake",
 		"비장의무기":"Hidden Strike","카마실비아의참":"Kamasylvia Slash","베디르의광기":"Lunacy of Vedir","야상곡":"Nocturne","칠흑의잿더미":"Obsidian Ashes","스며드는어둠":"Pervasive Darkness",
-		"암흑탄":"Shadow Bullet","기울어균형":"Slanted Balance","드러난비수":"Unveiled Dagger","운명의수레바퀴":"Wheel of Fortune","피어나는검은장미":"Blooming Black Rose","어스름":"Dusk",
+		"암흑탄":"Shadow Bullet","기울어진균형":"Slanted Balance","드러난비수":"Unveiled Dagger","운명의수레바퀴":"Wheel of Fortune","피어나는검은장미":"Blooming Black Rose","어스름":"Dusk",
 		"빗발치는절망":"Cluster of Despair","폭격":"Bombardment","뿌리내린재앙":"Root of Catastrophe","정령산화":"Spirit Blaze","처형":"Termination","환영의틈":"Hallucination Gap",
 		"원한의손아귀":"Grip of Grudge","오만한":"Imperious Command","칠흑의산화":"Obsidian Blaze","환영의덫":"Phantasmal Snare","정령의유산":"Spirit Legacy","황혼의질주":"Twilight Dash",
 		"암흑탄공":"Shadow Bullet Air","광기의잿더미":"Shadow Strike","비산하는어둠":"Shattering Darkness","자욱한무":"Smoky Haze","낚아챈영혼":"Soul Snatch","정령사냥":"Spirit Hunt",
