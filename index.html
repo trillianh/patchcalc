@@ -346,26 +346,10 @@ div#or{
 		"Nova":SKILL_NAMES_SPELLBLADE,
 		"Dark Knight":SKILL_NAMES_SPELLBLADE,
 		"Deadeye":SKILL_NAMES_WESTERN,
-		"Scholar":SKILL_NAMES_WESTERN
-		
+		"Scholar":SKILL_NAMES_WESTERN,
+		"Woosa":SKILL_NAMES_KOREA
 	}
 	
-function translateSkillName(str,classname){
-	str=str.replaceAll(" ","");
-	for (const [key, value] of Object.entries(CLASS_MAPPING[classname])) {
-		while(str.includes(key.replaceAll(" ",""))){
-			str = str.replace(key.replaceAll(" ",""), " "+value+" ");
-		}
-	}
-	for (const [key, value] of Object.entries(SKILL_NAMES_GENERAL)) {
-		while(str.includes(key.replaceAll(" ",""))){
-			str = str.replace(key.replaceAll(" ",""), " "+value+" ");
-		}
-	}
-	return str;
-}
-var currentJob = "";
-var isEN = false;
 const JOB_NAMES_KR = {
 		"워리어":"Warrior",
 		"레인저":"Ranger",
@@ -397,6 +381,22 @@ const JOB_NAMES_KR = {
 		"도사":"Dosa",
 		"데드아이":"Deadeye"
 	}
+function translateSkillName(str,classname){
+	str=str.replaceAll(" ","");
+	for (const [key, value] of Object.entries(CLASS_MAPPING[classname])) {
+		while(str.includes(key.replaceAll(" ",""))){
+			str = str.replace(key.replaceAll(" ",""), " "+value+" ");
+		}
+	}
+	for (const [key, value] of Object.entries(SKILL_NAMES_GENERAL)) {
+		while(str.includes(key.replaceAll(" ",""))){
+			str = str.replace(key.replaceAll(" ",""), " "+value+" ");
+		}
+	}
+	return str;
+}
+var currentJob = "";
+var isEN = false;
 function onload(){
 document.getElementById("inputpage").files = [];
 document.getElementById("inputpage").files.push(getFile("C:\\Users\\astra\\Desktop\\etc\\patchcalc\\glabr.html"));
@@ -420,6 +420,7 @@ getJobnamesInHtml = function(html){
 	isEN = doc.querySelector('title').innerHTML.includes("Patch Notes");
 	let namesandtables = doc.querySelectorAll('table,.char_name'); //every table in the page
 	for(let i=0; i<namesandtables.length; i++){
+		let rows = namesandtables[i].getElementsByTagName('tr');
 		if(namesandtables[i].className=="char_name"){
 			let name = translateKRtoEN(namesandtables[i].innerHTML);
 			if(!name.includes("Template")){
@@ -433,8 +434,8 @@ getJobnamesInHtml = function(html){
 				}
 			}
 		}
-		else if(namesandtables[i].getElementsByTagName('tr')[0].getElementsByTagName('td').length===3){
-			if(namesandtables[i].getElementsByTagName('tr')[1].getElementsByTagName('td')[1].innerHTML.includes("PvP")){
+		else if(rows[0].cells.length===3&&rows.length>2){
+			if(rows[1].cells[1].innerHTML.includes("PvP")){
 				ret.push(namesandtables[i]);
 			}
 		}
