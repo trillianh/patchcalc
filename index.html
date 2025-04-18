@@ -560,9 +560,9 @@ function convertRow(tr){
 				let afterstring = row[2].innerText;
 				afterstring = afterstring.replaceAll(/\+([0-9]{2})%/g, "");
 				let dmgre = /[0-9]{3,5}%/g;
-				let penre = /\s([0-9]{1,2})\.[0-9]{1}%/g;
+				let penre = /\s([0-9]{1,2})(\.[0-9]{1}){0,1}%/g;
 				if(isEN){
-					penre = /-([0-9]{1,2})\.[0-9]{1}%/g;
+					penre = /-([0-9]{1,2})(\.[0-9]{1}){0,1}%/g;
 				}
 				while(beforestring.search(dmgre)>-1||beforestring.search(penre)>-1){
 					let percentindex = beforestring.indexOf('%');
