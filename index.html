@@ -567,7 +567,7 @@ function convertRow(tr){
 				cell3 += "%"
 				cell3+="<div id='or'>"+afterdamages[i]+"% in PvE</div>"
 			}
-			if(beforedamages.length==0){ //populate damage array if there's a pvp penalty number and no damage number
+			if(beforedamages.length==0&&afterdamages.length==0){ //populate damage array if there's a pvp penalty number and no damage number
 				beforedamages.push(1000);
 				afterdamages.push(1000);
 			}
@@ -646,7 +646,7 @@ function convertRow(tr){
 				cell3 += "%"
 				cell3+="<div id='or'>"+afterdamages[i]+"% in PvE</div>"
 			}
-			if(beforedamages.length==0){ //populate damage array if there's a pvp penalty number and no damage number
+			if(beforedamages.length==0&&afterdamages.length==0){ //populate damage array if there's a pvp penalty number and no damage number
 				beforedamages.push(1000);
 				afterdamages.push(1000);
 			}
