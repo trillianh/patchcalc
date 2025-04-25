@@ -661,9 +661,14 @@ function convertRow(tr){
 			rowData.push(cell3);
 			rowData.push(cell4+"%");
 			rowData.push(cell5+"%");
-			}}
+			}
 			else{
 				rowData.push(row[k].innerText);
+			}
+		}
+			else{
+				
+				rowData.push(" ");
 			}
 		}
 	}
