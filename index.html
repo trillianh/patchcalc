@@ -511,6 +511,8 @@ function convertRow(tr){
 			
 			let beforedamages = [];
 			let afterdamages = [];
+			let beforehitcounts = [];
+
 			let beforepenalties= [];
 			let afterpenalties= [];
 			
@@ -761,7 +763,7 @@ for(let i=0; i<class_array.length; i++){
 </script>
 <p></p>
 Upload KR / Global Labs / NAEU patch notes HTML file here:<input type="file" id="inputpage" label="Upload Global Labs HTML file" onchange="choosefile()" accept=".html">
-<p id="outputmsg">This calculator will sometimes omit significant things like functional changes ex. added 100% crit chance, and changed hit count</p>
+<p id="outputmsg">This calculator only processes damage percent ("1986%") and does not factor in hit changes due to drastically varying format (" x 2"). </p><p>If some numbers seem extraordinary, double check if there are hit count changes.</p>
 <p>Other regions and bdo foundry notes are not supported yet.</p>
 
 <div id="border">
