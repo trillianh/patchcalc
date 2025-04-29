@@ -504,14 +504,16 @@ if(typeof String.prototype.replaceAll === "undefined") {
 function convertRow(tr){
 	let row = tr.getElementsByTagName('td');
 	let rowData = [];
+	let hitcountre = /[0-9]{1,2}[^%0-9.]/g
 
 	for (let k=0; k < row.length; k++) {
 		
 		if(row.length == 2){
-			
+			/*
 			let beforedamages = [];
 			let afterdamages = [];
 			let beforehitcounts = [];
+			let afterhitcounts = [];
 
 			let beforepenalties= [];
 			let afterpenalties= [];
@@ -533,6 +535,8 @@ function convertRow(tr){
 						beforedamages.push(parseInt(beforestring.substring(beforestring.search(/([0-9]{3,5})/),percentindex)));
 					}
 					else if(beforestring.search(penre)>-1){
+						let bstring = beforestring.substring(0,beforestring.search(penre));
+						beforehitcounts = beforehitcounts.concat(bstring.match(hitcountre));
 						beforepenalties.push((100-parseFloat(beforestring.substring(beforestring.search(penre)+1,percentindex)))/100)
 					}
 					beforestring = beforestring.substring(percentindex+1);
@@ -544,11 +548,27 @@ function convertRow(tr){
 						afterdamages.push(parseInt(afterstring.substring(afterstring.search(/([0-9]{3,5})/),percentindex)));
 					}
 					else if(afterstring.search(penre)>-1){
+						let astring = afterstring.substring(0,afterstring.search(penre));
+						afterhitcounts = afterhitcounts.concat(astring.match(hitcountre));
 						afterpenalties.push((100-parseFloat(afterstring.substring(afterstring.search(penre)+1,percentindex)))/100)
 					}
 					afterstring = afterstring.substring(percentindex+1);
 				}
-			
+				//check hit count arrays for if theres a inconsistency
+				let hitcountdifference = false;
+				try{
+					for(i in beforehitcounts){
+						if(beforehitcounts[i]==afterhitcounts[i]){
+
+						}
+						else{
+							hitcountdifference = true;
+							break;
+						}
+					}
+				}catch{
+					hitcountdifference = true;
+				}
 				//populate penalty arrays if there are more damage numbers than penalty numbers
 
 				while(beforepenalties.length<beforedamages.length){
@@ -578,6 +598,9 @@ function convertRow(tr){
 			let cell5 = 0;
 			cell4 = 100*(afterdamages[0] * afterpenalties[0])/(beforedamages[0] * beforepenalties[0])-100;
 			cell4 = parseInt(100*cell4)/100;
+			if(hitcountdifference){
+				cell4 += " hc err";
+			}
 			cell5 = 100*afterdamages[0]/beforedamages[0]-100;
 			cell5 = parseInt(100*cell5)/100;
 			rowData.push("");
@@ -588,11 +611,14 @@ function convertRow(tr){
 			}
 			else{
 				rowData.push(row[k].innerText);
-			}
-		}else{
+			}*/
+		}
+		else{
 			let beforedamages = [];
 			let afterdamages = [];
 			let beforepenalties= [];
+			let beforehitcounts = [];
+			let afterhitcounts = [];
 			let afterpenalties= [];
 				if(row.length>2){
 			if(row[1].innerText.includes("PvP")||row[2].innerText.includes("PvP")){
@@ -601,6 +627,9 @@ function convertRow(tr){
 				beforestring = beforestring.replaceAll(/\+([0-9]{2})%/g, "");
 				let afterstring = row[2].innerText;
 				afterstring = afterstring.replaceAll(/\+([0-9]{2})%/g, "");
+				beforehitcounts = beforehitcounts.concat(beforestring.match(hitcountre));
+				afterhitcounts = afterhitcounts.concat(afterstring.match(hitcountre));
+				
 				let dmgre = /[0-9]{3,5}%/g;
 				let penre = /\s([0-9]{1,2})(\.[0-9]{1}){0,1}%/g;
 				if(isEN){
@@ -608,13 +637,14 @@ function convertRow(tr){
 				}
 				while(beforestring.search(dmgre)>-1||beforestring.search(penre)>-1){
 					let percentindex = beforestring.indexOf('%');
-					if((beforestring.search(dmgre)>-1&&beforestring.search(penre)>-1)&&beforestring.search(dmgre)<beforestring.search(penre)){ //there should always be a penre at here
+					//if found damage number (4 digits + %), and found penalty number (2 digits dot 0-1 digit + %) and the next damage number comes before the next penalty number
+					if((beforestring.search(dmgre)>-1&&beforestring.search(penre)>-1)&&beforestring.search(dmgre)<beforestring.search(penre)){
 						beforedamages.push(parseInt(beforestring.substring(beforestring.search(/([0-9]{3,5})/),percentindex)));
 					}
-					else if(beforestring.search(penre)>-1){
+					else if(beforestring.search(penre)>-1){ //else if still found a penalty number 
 						beforepenalties.push((100-parseFloat(beforestring.substring(beforestring.search(penre)+1,percentindex)))/100)
 					}
-					beforestring = beforestring.substring(percentindex+1);
+					beforestring = beforestring.substring(percentindex+1); //modify the string to the next percent character found
 				}
 				
 				while(afterstring.search(dmgre)>-1||afterstring.search(penre)>-1){
@@ -626,6 +656,29 @@ function convertRow(tr){
 						afterpenalties.push((100-parseFloat(afterstring.substring(afterstring.search(penre)+1,percentindex)))/100)
 					}
 					afterstring = afterstring.substring(percentindex+1);
+				}
+				//check hit count arrays for if theres a inconsistency
+				let hitcountdifference = false;
+				try{
+					for(i in beforehitcounts){
+						beforehitcounts[i] = parseInt(beforehitcounts[i]);
+						afterhitcounts[i] = parseInt(afterhitcounts[i]);
+						if(beforehitcounts[i]==afterhitcounts[i]){
+
+						}
+						else if(isNaN(beforehitcounts[i])&&isNaN(afterhitcounts[i])){
+
+						}
+						else{
+							hitcountdifference = true;
+							break;
+						}
+					}
+				}catch{
+					hitcountdifference = true;
+					if(beforehitcounts.length===afterhitcounts.length&&beforehitcounts.length==0){
+						hitcountdifference = false;
+					}
 				}
 			
 				//populate penalty arrays if there are more damage numbers than penalty numbers
@@ -659,11 +712,19 @@ function convertRow(tr){
 			cell4 = parseInt(100*cell4)/100;
 			cell5 = 100*afterdamages[0]/beforedamages[0]-100;
 			cell5 = parseInt(100*cell5)/100;
+			if(hitcountdifference){
+				cell4 = "hit count change detected <div id='or'>likely incorrect change:"+cell4+"%</div>";
+				cell5 = "<div id='or'>likely incorrect change:"+cell5+"%</div>";
+			}
+			else{
+				cell4 += "%";
+				cell5 += "%";
+			}
 			rowData.push(row[0].innerText);
 			rowData.push(cell2);
 			rowData.push(cell3);
-			rowData.push(cell4+"%");
-			rowData.push(cell5+"%");
+			rowData.push(cell4);
+			rowData.push(cell5);
 			}
 			else{
 				rowData.push(row[k].innerText);
@@ -763,8 +824,8 @@ for(let i=0; i<class_array.length; i++){
 </script>
 <p></p>
 Upload KR / Global Labs / NAEU patch notes HTML file here:<input type="file" id="inputpage" label="Upload Global Labs HTML file" onchange="choosefile()" accept=".html">
-<p id="outputmsg">This calculator only processes damage percent ("1986%")  <br>and does not factor in hit changes due to unpredictably varying format (" x 2", "max 6 hits" etc). </p>
-<p>If some numbers seem extraordinary, double check if there are hit count changes. <br>(100% pvp change but x 2 -> x 1 = 0% actual change)</p>
+<p id="outputmsg">This calculator cannot factor in hit count changes due to unpredictably varying format (" x 2", "max 6 hits" etc). </p>
+<p>Detected hit count changes will show up as a warning in place of the PvP Change cell.</p>
 <p>Other regions and bdo foundry notes are not supported yet.</p>
 
 <div id="border">
